@@ -40,6 +40,16 @@ public class CarController : MonoBehaviour
     private Rigidbody _rigidbody;
     [SerializeField] private GameObject _centerOfMass;
 
+    private void Start()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+        if (_centerOfMass != null)
+        {
+            _rigidbody.centerOfMass = _centerOfMass.transform.localPosition;
+        }
+    }
+
+
     private void FixedUpdate()
     {
         GetInput();
@@ -49,8 +59,9 @@ public class CarController : MonoBehaviour
         HandleBraking();
         UpdateWheels();
         LimitSpeedDuringBraking();
-        UpdateEngineSound();
-        AddDownForce();
+        //UpdateEngineSound();
+        //AddDownForce();
+        AnitiRoll();
     }
 
     // Get user input for steering, acceleration, and braking
@@ -74,6 +85,8 @@ public class CarController : MonoBehaviour
         float motorTorque = engineForce * _verticalInput;
         rearLeftWheelCollider.motorTorque = motorTorque;
         rearRightWheelCollider.motorTorque = motorTorque;
+        frontLeftWheelCollider.motorTorque = motorTorque;
+        frontRightWheelCollider.motorTorque = motorTorque;
     }
 
     // Apply steering to the front wheels based on horizontal input (turning)
@@ -141,16 +154,50 @@ public class CarController : MonoBehaviour
     }
 
     // Update the pitch of the engine sound based on the car's speed
-    private void UpdateEngineSound()
-    {
-        float speed = _rigidbody.velocity.magnitude;
-        engineAudioSource.pitch = Mathf.Lerp(minPitch, maxPitch, _verticalInput);
+    //private void UpdateEngineSound()
+    //{
+    //    float speed = _rigidbody.velocity.magnitude;
+    //    engineAudioSource.pitch = Mathf.Lerp(minPitch, maxPitch, _verticalInput);
 
-    }
+    //}
 
-    private void AddDownForce()
+    //private void AddDownForce()
+    //{
+    //    if (_centerOfMass != null)
+    //    {
+    //        _rigidbody.centerOfMass = _centerOfMass.transform.position;
+    //    }
+
+    //    _rigidbody.AddForce(-transform.up * downForce * _rigidbody.velocity.magnitude * 2);
+
+    //}
+
+    private void AnitiRoll()
     {
-        _rigidbody.AddForce(-transform.up * downForce * _rigidbody.velocity.magnitude);
-        _rigidbody.centerOfMass = _centerOfMass.transform.position;
+        WheelHit hit;
+        float travelLeft = 1.0f;
+        float travelRight = 1.0f;
+
+        if (frontLeftWheelCollider.GetGroundHit(out hit))
+        {
+            travelLeft = (-frontLeftWheelCollider.transform.InverseTransformPoint(hit.point).y - frontLeftWheelCollider.radius) / frontLeftWheelCollider.suspensionDistance;
+        }
+
+        if (frontRightWheelCollider.GetGroundHit(out hit))
+        {
+            travelRight = (-frontRightWheelCollider.transform.InverseTransformPoint(hit.point).y - frontRightWheelCollider.radius) / frontRightWheelCollider.suspensionDistance;
+        }
+
+        float antiRollforce = (travelLeft - travelRight) * 5000f;
+
+        if (frontLeftWheelCollider.isGrounded)
+        {
+            _rigidbody.AddForceAtPosition(frontLeftWheelCollider.transform.up * -antiRollforce, frontLeftWheelCollider.transform.position);
+        }
+
+        if (frontRightWheelCollider.isGrounded)
+        {
+            _rigidbody.AddForceAtPosition(frontRightWheelCollider.transform.up * antiRollforce, frontRightWheelCollider.transform.position);
+        }
     }
 }
