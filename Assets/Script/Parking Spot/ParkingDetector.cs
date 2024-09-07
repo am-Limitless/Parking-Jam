@@ -17,21 +17,7 @@ public class ParkingDetector : MonoBehaviour
     {
         if (other.CompareTag("ParkingSpot"))
         {
-            if (other.transform == parkingSpot1)
-            {
-                currentParkingSpot = parkingSpot1;
-                Debug.Log("Car has entered Parking Spot 1.");
-            }
-            else if (other.transform == parkingSpot2)
-            {
-                currentParkingSpot = parkingSpot2;
-                Debug.Log("Car has entered Parking Spot 2.");
-            }
-            else if (other.transform == parkingSpot3)
-            {
-                currentParkingSpot = parkingSpot3;
-                Debug.Log("Car has entered Parking Spot 3.");
-            }
+            SetCurrentParkingSpot(other.transform);
             isParked = true;
         }
     }
@@ -46,12 +32,11 @@ public class ParkingDetector : MonoBehaviour
         }
     }
 
-
     private void Update()
     {
         if (isParked && currentParkingSpot != null)
         {
-            if (CarIsStopped() && CarIsProperlyAligned()) ;
+            if (CarIsStopped() && CarIsProperlyAligned())
             {
                 Debug.Log("Level Passed! Car is properly parked.");
                 StartCoroutine(WaitForParkingCompletion());
@@ -69,16 +54,13 @@ public class ParkingDetector : MonoBehaviour
 
     private bool CarIsStopped()
     {
-        Rigidbody carRigibody = GetComponent<Rigidbody>();
-        return carRigibody.velocity.magnitude < 0.001f;
+        Rigidbody carRigidbody = GetComponent<Rigidbody>();
+        return carRigidbody.velocity.magnitude < 0.001f;
     }
 
     private bool CarIsProperlyAligned()
     {
-        if (currentParkingSpot == null)
-        {
-            return false;
-        }
+        if (currentParkingSpot == null) return false;
 
         float distanceToSpot = Vector3.Distance(transform.position, currentParkingSpot.position);
         bool isPositionAligned = distanceToSpot <= positionTolerance;
@@ -87,14 +69,30 @@ public class ParkingDetector : MonoBehaviour
         bool isRotationAligned = angleDifference <= angleTolerance;
 
         Debug.Log($"Position aligned: {isPositionAligned}, Rotation aligned: {isRotationAligned}");
-
         return isPositionAligned && isRotationAligned;
+    }
+
+    private void SetCurrentParkingSpot(Transform parkingSpot)
+    {
+        if (parkingSpot == parkingSpot1)
+        {
+            currentParkingSpot = parkingSpot1;
+            Debug.Log("Car has entered Parking Spot 1.");
+        }
+        else if (parkingSpot == parkingSpot2)
+        {
+            currentParkingSpot = parkingSpot2;
+            Debug.Log("Car has entered Parking Spot 2.");
+        }
+        else if (parkingSpot == parkingSpot3)
+        {
+            currentParkingSpot = parkingSpot3;
+            Debug.Log("Car has entered Parking Spot 3.");
+        }
     }
 
     private void LevelComplete()
     {
-        Debug.Log("Proceesing to the next level...");
+        Debug.Log("Proceeding to the next level...");
     }
 }
-
-

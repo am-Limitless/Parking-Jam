@@ -1,3 +1,5 @@
+using System;
+using TMPro;
 using UnityEngine;
 
 public class CarController : MonoBehaviour
@@ -33,9 +35,12 @@ public class CarController : MonoBehaviour
     [SerializeField] Transform rearRightWheelTransform;
 
     // AudioSource for engine sound
-    [SerializeField] private AudioSource engineAudioSource;
-    [SerializeField] private float minPitch = 0.5f;
-    [SerializeField] private float maxPitch = 3.0f;
+    //[SerializeField] private AudioSource engineAudioSource;
+    //[SerializeField] private float minPitch = 0.5f;
+    //[SerializeField] private float maxPitch = 3.0f;
+
+    //Speedometer text UI element
+    [SerializeField] private TextMeshProUGUI speedometerText;
 
     private Rigidbody _rigidbody;
     [SerializeField] private GameObject _centerOfMass;
@@ -62,6 +67,16 @@ public class CarController : MonoBehaviour
         //UpdateEngineSound();
         //AddDownForce();
         AnitiRoll();
+        UpdateSpeedometer();
+    }
+
+    private void UpdateSpeedometer()
+    {
+        float speedInKmh = _rigidbody.velocity.magnitude * 3.6f;
+
+        speedInKmh = Mathf.Clamp(speedInKmh, 0, 150);
+
+        speedometerText.text = Mathf.RoundToInt(speedInKmh).ToString() + " km/h";
     }
 
     // Get user input for steering, acceleration, and braking
