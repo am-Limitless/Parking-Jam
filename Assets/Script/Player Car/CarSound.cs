@@ -2,21 +2,33 @@ using UnityEngine;
 
 public class CarSound : MonoBehaviour
 {
+    [Header("Speed Settings")]
     public float minSpeed;
     public float maxSpeed;
     private float currentSpeed;
 
-    private Rigidbody carRb;
-    private AudioSource carAudio;
-
+    [Header("Pitch Settings")]
     public float minPitch;
     public float maxPitch;
     private float pitchFromCar;
 
+    [Header("Audio Clips")]
+
+    public AudioClip reverseSound;
+    public AudioClip engineSound;
+    public float reversePitch = 0.8f;
+
+    private Rigidbody carRigidbody;
+    private AudioSource carAudioSource;
+
     private void Start()
     {
-        carAudio = GetComponent<AudioSource>();
-        carRb = GetComponent<Rigidbody>();
+        carAudioSource = GetComponent<AudioSource>();
+        carRigidbody = GetComponent<Rigidbody>();
+
+        carAudioSource.clip = engineSound;
+        carAudioSource.loop = true;
+        carAudioSource.Play();
     }
 
     private void FixedUpdate()
@@ -26,22 +38,42 @@ public class CarSound : MonoBehaviour
 
     private void EngineSound()
     {
-        currentSpeed = carRb.velocity.magnitude;
-        pitchFromCar = carRb.velocity.magnitude / 50f;
+        currentSpeed = carRigidbody.velocity.magnitude;
+        pitchFromCar = carRigidbody.velocity.magnitude / 50f;
 
-        if (currentSpeed < minSpeed)
+        if (Vector3.Dot(carRigidbody.velocity, transform.forward) < 0)
         {
-            carAudio.pitch = minPitch;
+            if (carAudioSource.clip != reverseSound)
+            {
+                carAudioSource.clip = reverseSound;
+                carAudioSource.Play();
+            }
+
+            carAudioSource.pitch = reversePitch;
         }
-
-        if (currentSpeed > minSpeed && currentSpeed < maxSpeed)
+        else
         {
-            carAudio.pitch = minPitch + pitchFromCar;
-        }
+            if (carAudioSource.clip != engineSound)
+            {
+                carAudioSource.clip = engineSound;
+                carAudioSource.Play();
+            }
 
-        if (currentSpeed > maxSpeed)
-        {
-            carAudio.pitch = maxPitch;
+
+            if (currentSpeed < minSpeed)
+            {
+                carAudioSource.pitch = minPitch;
+            }
+
+            if (currentSpeed > minSpeed && currentSpeed < maxSpeed)
+            {
+                carAudioSource.pitch = minPitch + pitchFromCar;
+            }
+
+            if (currentSpeed > maxSpeed)
+            {
+                carAudioSource.pitch = maxPitch;
+            }
         }
     }
 }
