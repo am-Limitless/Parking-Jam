@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ParkingDetector : MonoBehaviour
 {
@@ -94,5 +95,6 @@ public class ParkingDetector : MonoBehaviour
     private void LevelComplete()
     {
         Debug.Log("Proceeding to the next level...");
+        SceneManager.LoadScene("Level 2");
     }
 }

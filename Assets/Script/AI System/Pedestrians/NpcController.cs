@@ -1,9 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-/// <summary>
-/// Controls the NPC's movement and ragdoll behavior.
-/// </summary>
+
 public class NpcController : MonoBehaviour
 {
     [Header("Components")]
