@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - ParkingSpot
+  - PlayerCar
   layers:
   - Default
   - TransparentFX
