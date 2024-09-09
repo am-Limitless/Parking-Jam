@@ -41,7 +41,7 @@ public class CarSound : MonoBehaviour
         currentSpeed = carRigidbody.velocity.magnitude;
         pitchFromCar = carRigidbody.velocity.magnitude / 50f;
 
-        if (Vector3.Dot(carRigidbody.velocity, transform.forward) < 0)
+        if (Vector3.Dot(carRigidbody.velocity, transform.forward) < 0 && currentSpeed > 0.1f)
         {
             if (carAudioSource.clip != reverseSound)
             {
