@@ -14,6 +14,8 @@ public class ParkingDetector : MonoBehaviour
     [SerializeField] private float positionTolerance = 1.5f;
     [SerializeField] private float angleTolerance = 10f;
 
+    public GameObject winPannel;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("ParkingSpot"))
@@ -48,8 +50,10 @@ public class ParkingDetector : MonoBehaviour
     private IEnumerator WaitForParkingCompletion()
     {
         isParked = false;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
+        winPannel.SetActive(true);
         Debug.Log("Level Passed! Car is properly parked.");
+        yield return new WaitForSeconds(3);
         LevelComplete();
     }
 
@@ -95,6 +99,19 @@ public class ParkingDetector : MonoBehaviour
     private void LevelComplete()
     {
         Debug.Log("Proceeding to the next level...");
-        SceneManager.LoadScene("Level 2");
+
+
+
+        int currrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        if (SceneManager.sceneCountInBuildSettings > currrentSceneIndex + 1)
+        {
+            SceneManager.LoadScene(currrentSceneIndex + 1);
+        }
+        else
+        {
+            Debug.Log("Congragualtion!");
+            SceneManager.LoadScene(0);
+        }
     }
 }

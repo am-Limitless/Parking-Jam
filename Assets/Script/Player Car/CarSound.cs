@@ -16,10 +16,12 @@ public class CarSound : MonoBehaviour
 
     public AudioClip reverseSound;
     public AudioClip engineSound;
+    public AudioClip hornSound;
     public float reversePitch = 0.8f;
 
     private Rigidbody carRigidbody;
     private AudioSource carAudioSource;
+    private AudioSource hornAudioSource;
 
     private void Start()
     {
@@ -29,11 +31,15 @@ public class CarSound : MonoBehaviour
         carAudioSource.clip = engineSound;
         carAudioSource.loop = true;
         carAudioSource.Play();
+
+        hornAudioSource = gameObject.AddComponent<AudioSource>();
+        hornAudioSource.clip = hornSound;
     }
 
     private void FixedUpdate()
     {
         EngineSound();
+        PlayHorn();
     }
 
     private void EngineSound()
@@ -73,6 +79,17 @@ public class CarSound : MonoBehaviour
             if (currentSpeed > maxSpeed)
             {
                 carAudioSource.pitch = maxPitch;
+            }
+        }
+    }
+
+    private void PlayHorn()
+    {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            if (!hornAudioSource.isPlaying)
+            {
+                hornAudioSource.Play();
             }
         }
     }

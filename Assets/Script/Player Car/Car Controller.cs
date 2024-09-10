@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -34,11 +33,6 @@ public class CarController : MonoBehaviour
     [SerializeField] Transform rearLeftWheelTransform;
     [SerializeField] Transform rearRightWheelTransform;
 
-    // AudioSource for engine sound
-    //[SerializeField] private AudioSource engineAudioSource;
-    //[SerializeField] private float minPitch = 0.5f;
-    //[SerializeField] private float maxPitch = 3.0f;
-
     //Speedometer text UI element
     [SerializeField] private TextMeshProUGUI speedometerText;
 
@@ -64,8 +58,6 @@ public class CarController : MonoBehaviour
         HandleBraking();
         UpdateWheels();
         LimitSpeedDuringBraking();
-        //UpdateEngineSound();
-        //AddDownForce();
         AnitiRoll();
         UpdateSpeedometer();
     }
@@ -168,24 +160,6 @@ public class CarController : MonoBehaviour
         }
     }
 
-    // Update the pitch of the engine sound based on the car's speed
-    //private void UpdateEngineSound()
-    //{
-    //    float speed = _rigidbody.velocity.magnitude;
-    //    engineAudioSource.pitch = Mathf.Lerp(minPitch, maxPitch, _verticalInput);
-
-    //}
-
-    //private void AddDownForce()
-    //{
-    //    if (_centerOfMass != null)
-    //    {
-    //        _rigidbody.centerOfMass = _centerOfMass.transform.position;
-    //    }
-
-    //    _rigidbody.AddForce(-transform.up * downForce * _rigidbody.velocity.magnitude * 2);
-
-    //}
 
     private void AnitiRoll()
     {

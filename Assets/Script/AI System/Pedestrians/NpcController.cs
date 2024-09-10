@@ -14,7 +14,7 @@ public class NpcController : MonoBehaviour
     [SerializeField] private float minDistance = 14f;
 
     private Transform[] pathPoints;
-    private int currentIndex = 0;
+    public int currentIndex = 0;
 
     private const float RagdollHitForce = 125f;
 
