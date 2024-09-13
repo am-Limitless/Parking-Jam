@@ -3,43 +3,48 @@ using UnityEngine;
 
 public class NpcCarAI : MonoBehaviour
 {
-    public Transform path;
+    [Header("Path")]
+    [SerializeField] private Transform path;
 
-    private List<Transform> nodes;
-
+    private List<Transform> nodes = new List<Transform>();
     private int currentNode = 0;
 
-    public float maxSteerAngle = 45f;
+    [Header("Car Settings")]
+    [SerializeField] private float maxSteerAngle = 45f;
+    [SerializeField] private float maxMotorTorque = 50f;
+    [SerializeField] private float maxBrakeTorque = 150f;
+    [SerializeField] private Vector3 centerOfMassOffset;
+    [SerializeField] private float maxSpeed = 100f;
+    private float currentSpeed;
 
-    public float maxMotorTorque = 50f;
-
-    public Vector3 centerOfMassOffset;
-
+    [Header("Braking")]
     public bool isBraking = false;
+    [SerializeField] private Texture2D textureNormal;
+    [SerializeField] private Texture2D textureBraking;
 
-    public float currentSpeed;
-    public float maxSpeed = 100f;
+    [SerializeField] private Renderer carRenderer;
 
-    public Texture2D textureNormal;
-    public Texture2D textureBraking;
-    public Renderer carRendere;
+    [Header("Wheels")]
+    [SerializeField] private WheelCollider wheelFL;
+    [SerializeField] private WheelCollider wheelFR;
+    [SerializeField] private WheelCollider wheelRR;
+    [SerializeField] private WheelCollider wheelRL;
 
-    public WheelCollider wheelFL;
-    public WheelCollider wheelFR;
+    private Rigidbody rb;
 
     private void Start()
     {
-        GetComponent<Rigidbody>().centerOfMass = centerOfMassOffset;
+        // Cache the Rigidbody for better performance
+        rb = GetComponent<Rigidbody>();
+        rb.centerOfMass = centerOfMassOffset;
 
-        Transform[] pathTranforms = path.GetComponentsInChildren<Transform>();
-
-        nodes = new List<Transform>();
-
-        for (int i = 0; i < pathTranforms.Length; i++)
+        // Initialize the path nodes
+        Transform[] pathTransforms = path.GetComponentsInChildren<Transform>();
+        foreach (var t in pathTransforms)
         {
-            if (pathTranforms[i] != path.transform)
+            if (t != path.transform)  // Skip the parent path object
             {
-                nodes.Add(pathTranforms[i]);
+                nodes.Add(t);
             }
         }
     }
@@ -49,26 +54,29 @@ public class NpcCarAI : MonoBehaviour
         ApplySteer();
         Drive();
         CheckWaypointDistance();
-        Braking();
+        HandleBraking();
     }
 
-
-
+    /// <summary>
+    /// Applies steering based on the direction towards the next waypoint.
+    /// </summary>
     private void ApplySteer()
     {
         Vector3 relativeVector = transform.InverseTransformPoint(nodes[currentNode].position);
+        float steerAngle = (relativeVector.x / relativeVector.magnitude) * maxSteerAngle;
 
-        float newSteer = (relativeVector.x / relativeVector.magnitude) * maxSteerAngle;
-
-        wheelFL.steerAngle = newSteer;
-        wheelFR.steerAngle = newSteer;
+        wheelFL.steerAngle = steerAngle;
+        wheelFR.steerAngle = steerAngle;
     }
 
+    /// <summary>
+    /// Controls the car's driving behavior based on speed and braking state.
+    /// </summary>
     private void Drive()
     {
         currentSpeed = 2 * Mathf.PI * wheelFL.radius * wheelFL.rpm * 60 / 100;
 
-        if (currentSpeed < maxSpeed)
+        if (currentSpeed < maxSpeed && !isBraking)
         {
             wheelFL.motorTorque = maxMotorTorque;
             wheelFR.motorTorque = maxMotorTorque;
@@ -80,8 +88,12 @@ public class NpcCarAI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks the distance to the next waypoint and switches to the next one if close enough.
+    /// </summary>
     private void CheckWaypointDistance()
     {
+
         if (Vector3.Distance(transform.position, nodes[currentNode].position) < 0.5f)
         {
             if (currentNode == nodes.Count - 1)
@@ -92,19 +104,34 @@ public class NpcCarAI : MonoBehaviour
             {
                 currentNode++;
             }
-
         }
     }
 
-    private void Braking()
+    /// <summary>
+    /// Handles braking and visual texture changes based on the braking state.
+    /// </summary>
+    private void HandleBraking()
     {
         if (isBraking)
         {
-            carRendere.material.mainTexture = textureBraking;
+            SetCarTexture(textureBraking);
+            wheelRL.brakeTorque = maxBrakeTorque;
+            wheelRR.brakeTorque = maxBrakeTorque;
         }
         else
         {
-            carRendere.material.mainTexture = textureNormal;
+            SetCarTexture(textureNormal);
+            wheelRL.brakeTorque = 0;
+            wheelRR.brakeTorque = 0;
         }
+    }
+
+    /// <summary>
+    /// Sets the texture of the car using MaterialPropertyBlock for performance.
+    /// </summary>
+    /// <param name="texture">The texture to apply.</param>
+    private void SetCarTexture(Texture2D texture)
+    {
+        carRenderer.material.mainTexture = texture;
     }
 }
