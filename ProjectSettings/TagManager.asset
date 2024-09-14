@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ParkingSpot
   - PlayerCar
+  - Terrains
   layers:
   - Default
   - TransparentFX

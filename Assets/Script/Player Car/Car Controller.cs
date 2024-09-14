@@ -90,8 +90,8 @@ public class CarController : MonoBehaviour
     private void HandleMotor()
     {
         float motorTorque = engineForce * _verticalInput;
-        rearLeftWheelCollider.motorTorque = motorTorque;
-        rearRightWheelCollider.motorTorque = motorTorque;
+        //rearLeftWheelCollider.motorTorque = motorTorque;
+        //rearRightWheelCollider.motorTorque = motorTorque;
         frontLeftWheelCollider.motorTorque = motorTorque;
         frontRightWheelCollider.motorTorque = motorTorque;
     }

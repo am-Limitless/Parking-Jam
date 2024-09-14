@@ -7,7 +7,7 @@ public class NpcCarAI : MonoBehaviour
     [SerializeField] private Transform path;
 
     private List<Transform> nodes = new List<Transform>();
-    private int currentNode = 0;
+    [SerializeField] private int currentNode = 0;
 
     [Header("Car Settings")]
     [SerializeField] private float maxSteerAngle = 45f;
@@ -15,13 +15,12 @@ public class NpcCarAI : MonoBehaviour
     [SerializeField] private float maxBrakeTorque = 150f;
     [SerializeField] private Vector3 centerOfMassOffset;
     [SerializeField] private float maxSpeed = 100f;
-    private float currentSpeed;
+    [SerializeField] private float currentSpeed;
 
     [Header("Braking")]
     public bool isBraking = false;
     [SerializeField] private Texture2D textureNormal;
     [SerializeField] private Texture2D textureBraking;
-
     [SerializeField] private Renderer carRenderer;
 
     [Header("Wheels")]
@@ -29,6 +28,12 @@ public class NpcCarAI : MonoBehaviour
     [SerializeField] private WheelCollider wheelFR;
     [SerializeField] private WheelCollider wheelRR;
     [SerializeField] private WheelCollider wheelRL;
+
+    [Header("Sensors")]
+    public float sensorLength = 6f;
+    public float frontCenterPos = 0.5f;
+
+
 
     private Rigidbody rb;
 
@@ -51,11 +56,29 @@ public class NpcCarAI : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Sensors();
         ApplySteer();
         Drive();
         CheckWaypointDistance();
         HandleBraking();
     }
+
+    private void Sensors()
+    {
+        RaycastHit hit;
+        Vector3 sensorStartPos = transform.position;
+        sensorStartPos.z += frontCenterPos;
+
+        if (Physics.Raycast(sensorStartPos, transform.forward, out hit, sensorLength))
+        {
+            Debug.DrawLine(sensorStartPos, hit.point, color: Color.red);
+        }
+        Debug.DrawLine(sensorStartPos, hit.point, color: Color.green);
+    }
+
+
+
+
 
     /// <summary>
     /// Applies steering based on the direction towards the next waypoint.

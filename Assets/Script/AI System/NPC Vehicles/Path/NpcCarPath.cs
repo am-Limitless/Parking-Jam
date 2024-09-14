@@ -3,43 +3,56 @@ using UnityEngine;
 
 public class NpcCarPath : MonoBehaviour
 {
-    public Color lineColor;
+    // Public field to define the color of the Gizmos lines in the Unity Editor
+    [Header("Gizmo Settings")]
+    public Color lineColor = Color.white;
 
+    // List to store the node positions of the car path
     private List<Transform> nodes = new List<Transform>();
 
+    // This method is called by Unity when the object is selected in the editor and draws the Gizmos
     private void OnDrawGizmosSelected()
     {
+        // Set the color for drawing the Gizmos
         Gizmos.color = lineColor;
 
-        Transform[] pathTranforms = GetComponentsInChildren<Transform>();
+        // Get all child transforms, but avoid adding the parent (this object's transform)
+        Transform[] pathTransforms = GetComponentsInChildren<Transform>();
 
-        nodes = new List<Transform>();
+        // Clear the nodes list instead of creating a new one for better performance
+        nodes.Clear();
 
-        for (int i = 0; i < pathTranforms.Length; i++)
+        // Add all child transforms except the parent
+        foreach (Transform pathTransform in pathTransforms)
         {
-            if (pathTranforms[i] != transform)
+            if (pathTransform != transform)
             {
-                nodes.Add(pathTranforms[i]);
+                nodes.Add(pathTransform);
             }
         }
 
+        // Draw lines and spheres between the nodes
         for (int i = 0; i < nodes.Count; i++)
         {
-            Vector3 currentNode = nodes[i].position;
-            Vector3 previousNode = Vector3.zero;
+            // Get the position of the current node
+            Vector3 currentNodePosition = nodes[i].position;
 
+            // Determine the previous node's position
+            Vector3 previousNodePosition;
             if (i > 0)
             {
-                previousNode = nodes[i - 1].position;
+                previousNodePosition = nodes[i - 1].position;  // Connect to the previous node
             }
-            else if (i == 0 && nodes.Count > i)
+            else
             {
-                previousNode = nodes[nodes.Count - 1].position;
+                previousNodePosition = nodes[nodes.Count - 1].position;  // Connect the first node to the last node (loop)
             }
 
-            Gizmos.DrawLine(previousNode, currentNode);
+            // Draw the line between the previous and current node
+            Gizmos.DrawLine(previousNodePosition, currentNodePosition);
 
-            Gizmos.DrawWireSphere(currentNode, 0.3f);
+            // Draw a wireframe sphere at the current node's position for better visibility
+            Gizmos.DrawWireSphere(currentNodePosition, 0.3f);
         }
     }
 }
