@@ -205,7 +205,7 @@ public class NpcCarAI : MonoBehaviour
             else
             {
                 currentNode++;
-                Debug.Log(currentNode);
+                //Debug.Log(currentNode);
             }
         }
     }

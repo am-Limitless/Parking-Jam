@@ -15,6 +15,15 @@ public class ParkingDetector : MonoBehaviour
     [SerializeField] private float angleTolerance = 10f;
 
     public GameObject winPannel;
+    private LevelLoader levelLoader;
+
+    //public LevelLoader levelLoader;
+
+    private void Start()
+    {
+        levelLoader = FindObjectOfType<LevelLoader>();
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -54,6 +63,7 @@ public class ParkingDetector : MonoBehaviour
         winPannel.SetActive(true);
         Debug.Log("Level Passed! Car is properly parked.");
         yield return new WaitForSeconds(3);
+        Debug.Log("Level Completed");
         LevelComplete();
     }
 
@@ -73,7 +83,7 @@ public class ParkingDetector : MonoBehaviour
         float angleDifference = Vector3.Angle(transform.forward, currentParkingSpot.forward);
         bool isRotationAligned = angleDifference <= angleTolerance;
 
-        Debug.Log($"Position aligned: {isPositionAligned}, Rotation aligned: {isRotationAligned}");
+        //Debug.Log($"Position aligned: {isPositionAligned}, Rotation aligned: {isRotationAligned}");
         return isPositionAligned && isRotationAligned;
     }
 
@@ -100,18 +110,25 @@ public class ParkingDetector : MonoBehaviour
     {
         Debug.Log("Proceeding to the next level...");
 
-
-
         int currrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        if (SceneManager.sceneCountInBuildSettings > currrentSceneIndex + 1)
+        if (levelLoader != null)
         {
-            SceneManager.LoadScene(currrentSceneIndex + 1);
+            levelLoader.LoadLevel(currrentSceneIndex + 1);
         }
         else
         {
-            Debug.Log("Congragualtion!");
-            SceneManager.LoadScene(0);
+            Debug.LogWarning("Levelloader is not assigned!");
         }
+
+        //if (SceneManager.sceneCountInBuildSettings > currrentSceneIndex + 1)
+        //{
+        //    SceneManager.LoadScene(currrentSceneIndex + 1);
+        //}
+        //else
+        //{
+        //    Debug.Log("Congragualtion!");
+        //    SceneManager.LoadScene(0);
+        //}
     }
 }

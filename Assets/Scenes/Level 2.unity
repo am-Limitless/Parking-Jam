@@ -14771,6 +14771,7 @@ MonoBehaviour:
   positionTolerance: 1.5
   angleTolerance: 10
   winPannel: {fileID: 2088681846}
+  levelLoader: {fileID: 1999170540}
 --- !u!1001 &921149965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21005,6 +21006,7 @@ MonoBehaviour:
   positionTolerance: 1.5
   angleTolerance: 10
   winPannel: {fileID: 0}
+  levelLoader: {fileID: 0}
 --- !u!65 &1280089668
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26407,17 +26409,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 640709428}
     m_Modifications:
-    - target: {fileID: 271365379761958509, guid: 3da22022880936f488f279935edd4b2f, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3877558064970025193, guid: 3da22022880936f488f279935edd4b2f, type: 3}
       propertyPath: m_Name
       value: Loading Pannel
-      objectReference: {fileID: 0}
-    - target: {fileID: 3877558064970025193, guid: 3da22022880936f488f279935edd4b2f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6823199879293289466, guid: 3da22022880936f488f279935edd4b2f, type: 3}
       propertyPath: m_Pivot.x
@@ -34024,6 +34018,7 @@ MonoBehaviour:
   positionTolerance: 1.5
   angleTolerance: 10
   winPannel: {fileID: 2088681846}
+  levelLoader: {fileID: 1999170540}
 --- !u!65 &2017859425
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -36654,6 +36649,7 @@ MonoBehaviour:
   positionTolerance: 1.5
   angleTolerance: 10
   winPannel: {fileID: 2088681846}
+  levelLoader: {fileID: 0}
 --- !u!82 &2048616764703487905
 AudioSource:
   m_ObjectHideFlags: 0

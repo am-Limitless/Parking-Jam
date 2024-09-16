@@ -60,7 +60,7 @@ public class NpcController : MonoBehaviour
 
     public void Roam()
     {
-        Debug.Log("Agent Speed: " + agent.speed);
+        //Debug.Log("Agent Speed: " + agent.speed);
 
         if (Vector3.Distance(transform.position, pathPoints[currentIndex].position) < minDistance)
         {
@@ -70,9 +70,9 @@ public class NpcController : MonoBehaviour
         agent.SetDestination(pathPoints[currentIndex].position);
         animator.SetFloat("vertical", agent.isStopped ? 0 : 1);
 
-        Debug.Log("Moving towards: " + pathPoints[currentIndex].name);
-        Debug.Log("Agent isStopped: " + agent.isStopped);
-        Debug.Log("Agent remaining distance: " + agent.remainingDistance);
+        //Debug.Log("Moving towards: " + pathPoints[currentIndex].name);
+        //Debug.Log("Agent isStopped: " + agent.isStopped);
+        //Debug.Log("Agent remaining distance: " + agent.remainingDistance);
     }
 
 
