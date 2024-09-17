@@ -81,7 +81,7 @@ public class ParkingDetector : MonoBehaviour
         bool isPositionAligned = distanceToSpot <= positionTolerance;
 
         float angleDifference = Vector3.Angle(transform.forward, currentParkingSpot.forward);
-        bool isRotationAligned = angleDifference <= angleTolerance;
+        bool isRotationAligned = angleDifference <= angleTolerance || Mathf.Abs(angleDifference - 180f) <= angleTolerance;
 
         //Debug.Log($"Position aligned: {isPositionAligned}, Rotation aligned: {isRotationAligned}");
         return isPositionAligned && isRotationAligned;
