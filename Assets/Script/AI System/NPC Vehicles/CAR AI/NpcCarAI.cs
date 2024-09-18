@@ -28,8 +28,9 @@ public class NpcCarAI : MonoBehaviour
     [Header("Wheels")]
     [SerializeField] private WheelCollider wheelFL;
     [SerializeField] private WheelCollider wheelFR;
-    [SerializeField] private WheelCollider wheelRR;
     [SerializeField] private WheelCollider wheelRL;
+    [SerializeField] private WheelCollider wheelRR;
+
 
     [Header("Sensors")]
     public float sensorLength = 6f;

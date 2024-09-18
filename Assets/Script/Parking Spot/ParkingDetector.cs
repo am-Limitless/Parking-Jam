@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ParkingDetector : MonoBehaviour
 {
@@ -9,15 +8,17 @@ public class ParkingDetector : MonoBehaviour
 
     [SerializeField] private Transform parkingSpot1;
     [SerializeField] private Transform parkingSpot2;
-    [SerializeField] private Transform parkingSpot3;
 
     [SerializeField] private float positionTolerance = 1.5f;
     [SerializeField] private float angleTolerance = 10f;
 
     public GameObject winPannel;
+    [SerializeField] private GameObject GameUi;
+
     private LevelLoader levelLoader;
 
-    //public LevelLoader levelLoader;
+    public GameManager gameManager;
+
 
     private void Start()
     {
@@ -60,11 +61,13 @@ public class ParkingDetector : MonoBehaviour
     {
         isParked = false;
         yield return new WaitForSeconds(2);
+        GameUi.SetActive(false);
+        gameManager.levelPassed = true;
         winPannel.SetActive(true);
-        Debug.Log("Level Passed! Car is properly parked.");
-        yield return new WaitForSeconds(3);
-        Debug.Log("Level Completed");
-        LevelComplete();
+        //Debug.Log("Level Passed! Car is properly parked.");
+        //yield return new WaitForSeconds(3);
+        //Debug.Log("Level Completed");
+        //LevelComplete();
     }
 
     private bool CarIsStopped()
@@ -99,36 +102,32 @@ public class ParkingDetector : MonoBehaviour
             currentParkingSpot = parkingSpot2;
             Debug.Log("Car has entered Parking Spot 2.");
         }
-        else if (parkingSpot == parkingSpot3)
-        {
-            currentParkingSpot = parkingSpot3;
-            Debug.Log("Car has entered Parking Spot 3.");
-        }
+
     }
 
-    private void LevelComplete()
-    {
-        Debug.Log("Proceeding to the next level...");
+    //private void LevelComplete()
+    //{
+    //    Debug.Log("Proceeding to the next level...");
 
-        int currrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+    //    int currrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        if (levelLoader != null)
-        {
-            levelLoader.LoadLevel(currrentSceneIndex + 1);
-        }
-        else
-        {
-            Debug.LogWarning("Levelloader is not assigned!");
-        }
+    //    if (levelLoader != null)
+    //    {
+    //        levelLoader.LoadLevel(currrentSceneIndex + 1);
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning("Levelloader is not assigned!");
+    //    }
 
-        //if (SceneManager.sceneCountInBuildSettings > currrentSceneIndex + 1)
-        //{
-        //    SceneManager.LoadScene(currrentSceneIndex + 1);
-        //}
-        //else
-        //{
-        //    Debug.Log("Congragualtion!");
-        //    SceneManager.LoadScene(0);
-        //}
-    }
+    //    //if (SceneManager.sceneCountInBuildSettings > currrentSceneIndex + 1)
+    //    //{
+    //    //    SceneManager.LoadScene(currrentSceneIndex + 1);
+    //    //}
+    //    //else
+    //    //{
+    //    //    Debug.Log("Congragualtion!");
+    //    //    SceneManager.LoadScene(0);
+    //    //}
+    //}
 }

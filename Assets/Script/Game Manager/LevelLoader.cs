@@ -9,10 +9,10 @@ public class LevelLoader : MonoBehaviour
 
     public Slider slider;
 
-    public void LoadLevel(int sceneIndex)
+    public void LoadLevel()
     {
-
-        StartCoroutine(LoadSceneAsyn(sceneIndex));
+        int currrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        StartCoroutine(LoadSceneAsyn(currrentSceneIndex));
 
     }
 
