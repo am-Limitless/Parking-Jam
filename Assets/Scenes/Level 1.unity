@@ -37947,6 +37947,7 @@ MonoBehaviour:
   NormalDriver: {fileID: 795611853}
   BadDriver: {fileID: 1208021031}
   _centerOfMass: {fileID: 5728951314653454483}
+  EngineOff: 1
 --- !u!33 &1415342357104676248
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -38811,6 +38812,7 @@ MonoBehaviour:
   winPannel: {fileID: 2088681846}
   GameUi: {fileID: 1492438973}
   gameManager: {fileID: 1679400825}
+  carController: {fileID: 1232935856514469761}
 --- !u!1001 &5329270972731018547
 PrefabInstance:
   m_ObjectHideFlags: 0

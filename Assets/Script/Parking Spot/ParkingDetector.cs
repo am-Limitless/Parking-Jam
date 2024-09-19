@@ -19,6 +19,8 @@ public class ParkingDetector : MonoBehaviour
 
     public GameManager gameManager;
 
+    public CarController carController;
+
 
     private void Start()
     {
@@ -62,6 +64,7 @@ public class ParkingDetector : MonoBehaviour
         isParked = false;
         yield return new WaitForSeconds(2);
         GameUi.SetActive(false);
+        carController.EngineOff = false;
         gameManager.levelPassed = true;
         winPannel.SetActive(true);
         //Debug.Log("Level Passed! Car is properly parked.");

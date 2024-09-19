@@ -51,6 +51,7 @@ public class CarController : MonoBehaviour
 
     private Rigidbody _rigidbody;
     [SerializeField] private GameObject _centerOfMass;
+    public bool EngineOff = true;
 
     private void Start()
     {
@@ -65,7 +66,10 @@ public class CarController : MonoBehaviour
     {
         GetInput();
         LimitSpeed();
-        HandleMotor();
+        if (EngineOff)
+        {
+            HandleMotor();
+        }
         HandleSteering();
         HandleBraking();
         UpdateWheels();
