@@ -33,8 +33,21 @@ public class CarController : MonoBehaviour
     [SerializeField] Transform rearLeftWheelTransform;
     [SerializeField] Transform rearRightWheelTransform;
 
-    //Speedometer text UI element
+    // Speedometer text UI element
     [SerializeField] private TextMeshProUGUI speedometerText;
+
+    // Score management
+    [SerializeField] private int playerScore = 100;
+
+    // Star images in the win menu
+    [SerializeField] private GameObject star1;
+    [SerializeField] private GameObject star2;
+    [SerializeField] private GameObject star3;
+
+    // Driver comments
+    [SerializeField] private GameObject BestDriver;
+    [SerializeField] private GameObject NormalDriver;
+    [SerializeField] private GameObject BadDriver;
 
     private Rigidbody _rigidbody;
     [SerializeField] private GameObject _centerOfMass;
@@ -47,7 +60,6 @@ public class CarController : MonoBehaviour
             _rigidbody.centerOfMass = _centerOfMass.transform.localPosition;
         }
     }
-
 
     private void FixedUpdate()
     {
@@ -187,6 +199,64 @@ public class CarController : MonoBehaviour
         if (frontRightWheelCollider.isGrounded)
         {
             _rigidbody.AddForceAtPosition(frontRightWheelCollider.transform.up * antiRollforce, frontRightWheelCollider.transform.position);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag != "Terrains")
+        {
+            DeductPoints();
+        }
+    }
+
+    public void DeductPoints()
+    {
+        playerScore -= 10;
+        playerScore = Mathf.Max(0, playerScore); // score doesn't go below 0
+        ShowStarsBasedOnScore();
+    }
+
+    public void ShowStarsBasedOnScore()
+    {
+        star1.SetActive(false);
+        star2.SetActive(false);
+        star3.SetActive(false);
+
+        BestDriver.SetActive(false);
+        NormalDriver.SetActive(false);
+        BadDriver.SetActive(false);
+
+        if (playerScore == 100)
+        {
+            Debug.Log("Best Driver Message Activated");
+            star1.SetActive(true);
+            star2.SetActive(true);
+            star3.SetActive(true);
+
+            BestDriver.SetActive(true);
+            NormalDriver.SetActive(false);
+            BadDriver.SetActive(false);
+
+        }
+        else if (playerScore >= 50 && playerScore < 100)
+        {
+            Debug.Log("Normal Driver Message Activated");
+            star1.SetActive(true);
+            star2.SetActive(true);
+
+            BestDriver.SetActive(false);
+            NormalDriver.SetActive(true);
+            BadDriver.SetActive(false);
+        }
+        else if (playerScore < 50)
+        {
+            Debug.Log("Bad Driver Message Activated");
+            star1.SetActive(true);
+
+            BestDriver.SetActive(false);
+            NormalDriver.SetActive(false);
+            BadDriver.SetActive(true);
         }
     }
 }
