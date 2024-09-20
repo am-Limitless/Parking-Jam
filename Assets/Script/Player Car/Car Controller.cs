@@ -208,7 +208,7 @@ public class CarController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag != "Terrains")
+        if (collision.gameObject.tag != "Terrains" && collision.gameObject.tag != "Collect")
         {
             DeductPoints();
         }
