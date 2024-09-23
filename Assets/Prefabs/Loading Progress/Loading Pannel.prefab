@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1234011878076706483}
   - component: {fileID: 4662971051355580897}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: Level Loader Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
