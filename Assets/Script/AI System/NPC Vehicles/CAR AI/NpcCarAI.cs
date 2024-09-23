@@ -78,6 +78,7 @@ public class NpcCarAI : MonoBehaviour
         sensorStartPos += transform.up * frontCenterSensorPos.y;
         float avoidMultiplier = 0f;
         avoiding = false;
+        isBraking = false;
 
         // Front right sensor
         sensorStartPos += transform.right * frontSideSensorPos;
@@ -88,6 +89,11 @@ public class NpcCarAI : MonoBehaviour
                 Debug.DrawLine(sensorStartPos, hit.point, color: Color.red);
                 avoiding = true;
                 avoidMultiplier -= 1f;
+
+                if (hit.distance < sensorLength)
+                {
+                    isBraking = true;
+                }
             }
         }
         // Front right angle sensor
@@ -99,6 +105,11 @@ public class NpcCarAI : MonoBehaviour
                 avoiding = true;
                 avoiding = true;
                 avoidMultiplier -= 0.5f;
+
+                //if (hit.distance < sensorLength)
+                //{
+                //    isBraking = true;
+                //}
             }
         }
 
@@ -113,6 +124,11 @@ public class NpcCarAI : MonoBehaviour
                 avoiding = true;
                 avoiding = true;
                 avoidMultiplier += 1f;
+
+                if (hit.distance < sensorLength)
+                {
+                    isBraking = true;
+                }
             }
         }
         // Front left angle sensor
@@ -124,6 +140,11 @@ public class NpcCarAI : MonoBehaviour
                 avoiding = true;
                 avoiding = true;
                 avoidMultiplier += 0.5f;
+
+                //if (hit.distance < sensorLength)
+                //{
+                //    isBraking = true;
+                //}
             }
         }
 
@@ -143,6 +164,11 @@ public class NpcCarAI : MonoBehaviour
                     else
                     {
                         avoidMultiplier = 1;
+                    }
+
+                    if (hit.distance < sensorLength)
+                    {
+                        isBraking = true;
                     }
                 }
             }
@@ -188,6 +214,17 @@ public class NpcCarAI : MonoBehaviour
         {
             wheelFL.motorTorque = 0;
             wheelFR.motorTorque = 0;
+        }
+
+        if (isBraking)
+        {
+            wheelFR.brakeTorque = maxBrakeTorque;
+            wheelFL.brakeTorque = maxBrakeTorque;
+        }
+        else
+        {
+            wheelFR.brakeTorque = 0;
+            wheelFL.brakeTorque = 0;
         }
     }
 
