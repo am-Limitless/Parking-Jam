@@ -4,10 +4,12 @@ public class GameManager : MonoBehaviour
 {
     public bool levelPassed = false;
 
+    public bool pauseActive = false;
+
     // Called when the game starts
     private void Update()
     {
-        if (levelPassed == false)
+        if (!levelPassed && !pauseActive)
         {
             LockCursor();
         }
