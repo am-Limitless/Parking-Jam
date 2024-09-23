@@ -46,8 +46,10 @@ public class CarController : MonoBehaviour
 
     // Driver comments
     [SerializeField] private GameObject BestDriver;
-    [SerializeField] private GameObject NormalDriver;
-    [SerializeField] private GameObject BadDriver;
+    //[SerializeField] private GameObject NormalDriver;
+    //[SerializeField] private GameObject BadDriver;
+
+    public TextMeshProUGUI message;
 
     private Rigidbody _rigidbody;
     [SerializeField] private GameObject _centerOfMass;
@@ -228,8 +230,8 @@ public class CarController : MonoBehaviour
         star3.SetActive(false);
 
         BestDriver.SetActive(false);
-        NormalDriver.SetActive(false);
-        BadDriver.SetActive(false);
+        //NormalDriver.SetActive(false);
+        //BadDriver.SetActive(false);
 
         if (playerScore == 100)
         {
@@ -239,8 +241,10 @@ public class CarController : MonoBehaviour
             star3.SetActive(true);
 
             BestDriver.SetActive(true);
-            NormalDriver.SetActive(false);
-            BadDriver.SetActive(false);
+            message.text = "Best Diver";
+
+            //NormalDriver.SetActive(false);
+            //BadDriver.SetActive(false);
 
         }
         else if (playerScore >= 50 && playerScore < 100)
@@ -249,18 +253,22 @@ public class CarController : MonoBehaviour
             star1.SetActive(true);
             star2.SetActive(true);
 
-            BestDriver.SetActive(false);
-            NormalDriver.SetActive(true);
-            BadDriver.SetActive(false);
+            BestDriver.SetActive(true);
+            message.text = "Congrats... Good Diver";
+
+            //NormalDriver.SetActive(true);
+            //BadDriver.SetActive(false);
         }
         else if (playerScore < 50)
         {
             Debug.Log("Bad Driver Message Activated");
             star1.SetActive(true);
 
-            BestDriver.SetActive(false);
-            NormalDriver.SetActive(false);
-            BadDriver.SetActive(true);
+            BestDriver.SetActive(true);
+            message.text = "Bad Diver";
+
+            //NormalDriver.SetActive(false);
+            //BadDriver.SetActive(true);
         }
     }
 }
