@@ -15,6 +15,8 @@ public class Level2ParkingSensor : MonoBehaviour
     public GameObject winPannel;
     [SerializeField] private GameObject GameUi;
 
+    [SerializeField] private GameObject TimerUI;
+
     private LevelLoader levelLoader;
 
     public GameManager gameManager;
@@ -71,7 +73,9 @@ public class Level2ParkingSensor : MonoBehaviour
         GameUi.SetActive(false);
         carController.EngineOff = false;
         gameManager.levelPassed = true;
+        TimerUI.SetActive(false);
         winPannel.SetActive(true);
+
     }
 
     private bool CarIsStopped()

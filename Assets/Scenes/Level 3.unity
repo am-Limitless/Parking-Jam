@@ -8806,6 +8806,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6185675460995582276, guid: d753e5d732a1e6e4a8f6528953cce04f, type: 3}
   m_PrefabInstance: {fileID: 577363150}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &577363152 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7010899011873356146, guid: d753e5d732a1e6e4a8f6528953cce04f, type: 3}
+  m_PrefabInstance: {fileID: 577363150}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &579685842
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39527,6 +39532,7 @@ MonoBehaviour:
   angleTolerance: 10
   winPannel: {fileID: 2088681846}
   GameUi: {fileID: 1492438973}
+  TimerUI: {fileID: 577363152}
   gameManager: {fileID: 1679400825}
   carController: {fileID: 1232935856514469761}
   collectScript: {fileID: 7656605825539058657}
