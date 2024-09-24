@@ -6,12 +6,18 @@ public class GameManager : MonoBehaviour
 
     public bool pauseActive = false;
 
+    public bool gameOver = false;
+
     // Called when the game starts
     private void Update()
     {
-        if (!levelPassed && !pauseActive)
+        if (!levelPassed && !pauseActive && !gameOver)
         {
             LockCursor();
+        }
+        else if (gameOver)
+        {
+            FreeCursor();
         }
         else
         {

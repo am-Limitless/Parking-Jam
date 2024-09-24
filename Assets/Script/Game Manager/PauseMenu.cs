@@ -11,6 +11,7 @@ public class PauseMenu : MonoBehaviour
 
     //Loading level
     public GameObject loadingPannel;
+    public GameObject GameOverUI;
     public Slider slider;
 
     //Music Pannel
@@ -59,6 +60,7 @@ public class PauseMenu : MonoBehaviour
     {
         GameUI.SetActive(false);
         pauseMenuUI.SetActive(false);
+        GameOverUI.SetActive(false);
         int currentScene = SceneManager.GetActiveScene().buildIndex;
         StartCoroutine(LoadSceneAsyn(currentScene));
         Time.timeScale = 1f;
@@ -66,6 +68,9 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenu()
     {
+        GameUI.SetActive(false);
+        pauseMenuUI.SetActive(false);
+        GameOverUI.SetActive(false);
         StartCoroutine(LoadSceneAsyn(0));
         Time.timeScale = 1f;
     }
