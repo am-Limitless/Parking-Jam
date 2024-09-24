@@ -21747,27 +21747,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 542013840198436507, guid: d9aa8211da4b84c4e9cccd256b70ba5c, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 542013840198436507, guid: d9aa8211da4b84c4e9cccd256b70ba5c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 542013840198436507, guid: d9aa8211da4b84c4e9cccd256b70ba5c, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 542013840198436507, guid: d9aa8211da4b84c4e9cccd256b70ba5c, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 542013840198436507, guid: d9aa8211da4b84c4e9cccd256b70ba5c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 542013840198436507, guid: d9aa8211da4b84c4e9cccd256b70ba5c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 542013840198436507, guid: d9aa8211da4b84c4e9cccd256b70ba5c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21799,7 +21799,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 542013840198436507, guid: d9aa8211da4b84c4e9cccd256b70ba5c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -82.24
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 542013840198436507, guid: d9aa8211da4b84c4e9cccd256b70ba5c, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -21816,6 +21816,14 @@ PrefabInstance:
     - target: {fileID: 542013840198436507, guid: d9aa8211da4b84c4e9cccd256b70ba5c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960956664884776577, guid: d9aa8211da4b84c4e9cccd256b70ba5c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 105
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960956664884776577, guid: d9aa8211da4b84c4e9cccd256b70ba5c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 105
       objectReference: {fileID: 0}
     - target: {fileID: 8068453322999449030, guid: d9aa8211da4b84c4e9cccd256b70ba5c, type: 3}
       propertyPath: m_Name
@@ -25218,7 +25226,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 3670320690607549656, guid: f804f192ad5309f4ea53be0b2dc11ad0, type: 2}
   m_audioClip: {fileID: 8300000, guid: 75ee0416c1fcd8a4d995a0d044698e7d, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -38304,7 +38312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3a281fac4e17e4b9c813df6920d65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  engineForce: 500
+  engineForce: 1000
   brakeForce: 100000
   maxSteerAngle: 30
   maxSpeed: 200
