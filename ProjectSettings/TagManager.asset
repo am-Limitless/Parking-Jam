@@ -8,6 +8,7 @@ TagManager:
   - PlayerCar
   - Terrains
   - Collect
+  - Props
   layers:
   - Default
   - TransparentFX

@@ -11,7 +11,7 @@ public class NpcController : MonoBehaviour
     [SerializeField] private Rigidbody[] rigidBodies;
 
     [Header("Path Settings")]
-    [SerializeField] private float minDistance = 14f;
+    [SerializeField] private float minDistance = 1f;
 
     private Transform[] pathPoints;
     public int currentIndex = 0;
