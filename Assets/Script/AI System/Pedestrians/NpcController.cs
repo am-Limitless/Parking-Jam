@@ -18,12 +18,16 @@ public class NpcController : MonoBehaviour
 
     private const float RagdollHitForce = 125f;
 
+    private CapsuleCollider capsuleCollider;
+
     private void Start()
     {
         // Initialize components and path points
         InitializeComponents();
         InitializePathPoints();
         SetInitialDestination();
+
+        capsuleCollider = GetComponent<CapsuleCollider>();
     }
 
     private void FixedUpdate()
@@ -105,6 +109,11 @@ public class NpcController : MonoBehaviour
 
     private void ActivateRagdoll()
     {
+        if (capsuleCollider != null)
+        {
+            capsuleCollider.enabled = false;
+        }
+
         foreach (var rigidBody in rigidBodies)
         {
             Debug.Log("Activating ragdoll: " + rigidBody.name);
